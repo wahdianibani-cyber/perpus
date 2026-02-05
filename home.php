@@ -99,5 +99,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!--pending Requests Card Example-->
+                        <div class="co1-x1-3 co1-md-6 mb-4">
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <table class="table table-bordered">
+            <tr>
+                <td width="150"><stroong>Nama</stroong></td>
+                <td with="1"> </td>
+                
+                        
 </body>
 </html>
