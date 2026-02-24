@@ -1,9 +1,14 @@
 <?php
-session_start();
+
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $koneksi = mysqli_connect("localhost", "root", "", "perpusdigital");
 
-if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+//check connection
+if (mysqli_connect_errno()) {
+    echo "Koneksi database gagal : " . mysqli_connect_error();
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 include 'koneksi.php';
-if(!isset($_SESSION['user'])){
-    header("location:login.php");
+if (!isset($_SESSION['user'])) {
+    header('location:login.php');
 }
 ?>
 
@@ -16,7 +16,7 @@ if(!isset($_SESSION['user'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Admin</title>
+    <title>Perpustakaan Digital</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,6 +26,7 @@ if(!isset($_SESSION['user'])){
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -38,11 +39,11 @@ if(!isset($_SESSION['user'])){
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-book"></i>
+                    <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">PERPUS DIGITAL <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">PERPUS DIGITAL</div>
             </a>
 
             <!-- Divider -->
@@ -67,47 +68,45 @@ if(!isset($_SESSION['user'])){
             <li class="nav-item">
                 <a class="nav-link collapsed" href="?page=peminjaman" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Peminjamaan</span>
+                    <i class="fa-solid fa-handshake"></i>
+                    <span>Peminjaman</span>
                 </a>
             </li>
 
-            <?php if($_SESSION['user']['level'] != 'peminjam') : ?>
+             <!-- Nav Item - Pages Collapse Menu -->
+            <?php if ($_SESSION['user']['level'] != 'peminjam') : ?>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=kategori" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="?page=kategori" 
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
+                    <i class="fa-solid fa-icons"></i>
                     <span>Kategori</span>
                 </a>
-               </li>
-               <?php endif; ?>
+            </li>
+            <?php endif; ?>
 
+             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=book" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="?page=buku"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book-open"></i>
+                   <i class="fa-solid fa-book"></i>
                     <span>Buku</span>
                 </a>
+            </li>
 
+             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="?page=ulasan" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="?page=ulasan"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-comment"></i>
+                    <i class="fa-solid fa-star"></i>
                     <span>Ulasan</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book-open"></i>
-                    <span>Logout</span>
-                </a>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-        </ul>
 
+        </ul>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -308,7 +307,7 @@ if(!isset($_SESSION['user'])){
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -324,17 +323,33 @@ if(!isset($_SESSION['user'])){
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div> -->
+
+                    <!-- Content Row -->
+                    <div class="row">
+                    <!--cek apakah ada paging dasboard-->
+                    <?php
+                    $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+                    ?>
+
+
                     </div>
 
+                    <!-- Content Row -->
 
-                      
-                  
-
-
+                    <div class="row">
+                    <?php 
+                    if (file_exists($page . '.php')) {
+                        include $page . '.php';
+                    } else {
+                        include '404.php';
+                    }
+                    ?>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -345,7 +360,7 @@ if(!isset($_SESSION['user'])){
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Whdyany Website 2021</span>
+                        <span> perpusdigital_Whdiani &copy;</span>
                     </div>
                 </div>
             </footer>
@@ -376,7 +391,7 @@ if(!isset($_SESSION['user'])){
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -398,7 +413,7 @@ if(!isset($_SESSION['user'])){
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    
+
 </body>
 
 </html>

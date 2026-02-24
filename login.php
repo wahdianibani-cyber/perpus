@@ -2,8 +2,6 @@
 include 'koneksi.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +13,7 @@ include 'koneksi.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Log In</title>
+    <title>SB Admin 2 - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,32 +46,35 @@ include 'koneksi.php';
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
                                     <?php
-                                    
                                     if (isset($_POST['login'])) {
                                         $username = $_POST['username'];
-                                        $password = $_POST['password'];
-
-                                        $data = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+                                        $password = md5($_POST['password']);
+                                        
+                                        $data = mysqli_query($koneksi, "SELECT * FROM user 
+                                        WHERE username='$username' AND password='$password'");
                                         $cek = mysqli_num_rows($data);
-                                        if ($cek > 0 ) {
+                                        if ($cek > 0) {
                                             $_SESSION['user'] = mysqli_fetch_array($data);
-                                            header("location:index.php");
+                                            echo '<script>alert("Login Berhasil");
+                                            location.href="index.php";</script>';
                                         } else {
-                                            echo "<script>alert('Username atau Password salah!');</script>";
+                                            echo '<script>alert("Login Gagal: Cek username dan password anda!");
+                                            location.href="login.php";</script>';
                                         }
+                                        
                                     }
                                     ?>
                                     <form method="POST" class="user">
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Username...">
+                                                placeholder="Enter username..">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password...">
+                                                id="exampleInputPassword" placeholder="Password">
+
                                         </div>
-                                        
                                         <button type="submit" name="login" value="login" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
